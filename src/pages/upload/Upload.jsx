@@ -1,13 +1,14 @@
 import { useState } from "react";
-import "./upload.css";
-import axios from 'axios'
+import "./upload.scss";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import demoImage from "./demoImage.jpg"
+import demoImage from "./demoImage.jpg";
 
 const Upload = () => {
 	const [imageData, setImageData] = useState(demoImage);
-	const [caption , setCaption]=useState()
-	const navigate = useNavigate()
+	const [caption, setCaption] = useState();
+	const [loading, setLoading] = useState(false);
+	const navigate = useNavigate();
 
 	const handleImageUpload = (event) => {
 		const file = event.target.files[0];
@@ -23,73 +24,79 @@ const Upload = () => {
 
 			reader.readAsDataURL(file);
 		} else {
-			// Clear the state variable if no file is selected .. 
+			// Clear the state variable if no file is selected ..
 			setImageData(null);
 		}
 	};
 
-	function captionHandle(event){
-      
+	function captionHandle(event) {
 		//console.log(event.target.name)
-		setCaption(event.target.value)
-  
-	  }
+		setCaption(event.target.value);
+	}
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-
+	  
 		const myForm = new FormData();
-
+	  
 		myForm.set("imageData", imageData);
-		myForm.append("caption", caption)
-		//caption.myForm = myForm
-        
+		myForm.append("caption", caption);
+		setLoading(true); // Set loading to true here
+	  
 		try {
-			const config = { headers: {  "Content-Type": "multipart/form-data"} };
-			
-			const { data } = await axios.post(`http://localhost:8080/api/images`, myForm , config);
-          navigate('/')
-      console.log(data)
-
+		  const config = { headers: { "Content-Type": "multipart/form-data" } };
+	  
+		  const { data } = await axios.post(
+			`http://localhost:8080/api/images`,
+			myForm,
+			config
+		  );
+	  
+		  // Set loading to false after the asynchronous operation is complete
+		  setLoading(false);
+	  
+		  navigate("/");
+	
 		} catch (error) {
-      console.log(error)
-    }
-	};
+		  console.log(error);
+		  setLoading(false); // Make sure to set loading to false in case of an error
+		}
+	  };
 
 	return (
 		<>
+			<div className='form-container'>
+				<form action='' onSubmit={handleSubmit}>
+					<button className='submit' type='submit' value='submit' name='submit' disabled={loading} >
+						{" "}
+						{loading ? "Uploading..." : "Upload"}
+					</button>
+					<br></br>
+					<input
+						className='caption'
+						type='text'
+						required
+						name='caption'
+						placeholder='caption'
+						onChange={captionHandle}
+					/>
 
+					<input
+						hidden
+						className='file'
+						type='file'
+						name='file'
+						id='file'
+						accept='image/*'
+						onChange={handleImageUpload}
+					/>
+					<label className='label' htmlFor='file'>
+						<img id='image' className='input-image' src={imageData} alt='' />
+					</label>
+				</form>
+			</div>
 
-
-      <div className='form-container'>
-      <form action="" onSubmit={handleSubmit}>
-        <input className='submit' type="submit" value="submit" name='submit'/><br></br>
-        <input className='caption' type="text" name='caption' placeholder='caption' onChange={captionHandle} />
-         
-        <input hidden className='file' type="file" name="file" id="file" accept='image/*' onChange={handleImageUpload} />
-        <label className='label'  htmlFor="file"><img  id='image' className='input-image' src={imageData} alt="" /></label> 
-
-    </form>
-      </div>
-    
-       <div className='show-data'>
-        
-       </div>
-
-			{/* <h2>Upload images</h2>
-            && means if image are present then get the image 
-			{imageData && (
-				<img
-					src={imageData}
-					alt='Image Preview'
-					style={{ maxWidth: "100px" }}
-				/>
-			)}
-
-			<form encType='multipart/form-data' onSubmit={handleSubmit}>
-				<input type='file' accept='image/*' onChange={handleImageUpload} />
-				<button type='submit'>Upload</button>
-			</form> */}
+			<div className='show-data'></div>
 		</>
 	);
 };
