@@ -1,10 +1,17 @@
 import { useEffect, useState } from 'react';
 import './home.scss';
 import axios from 'axios';
-import Upload from '../upload/Upload';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 const Home = () => {
   const [images, setImages] = useState([]);
+  const navigete = useNavigate()
+
+ const UploadImage = ()=>{
+      navigete('/upload') 
+   
+ }
 
   const getImages = async () => {
     try {
@@ -19,20 +26,29 @@ const Home = () => {
     getImages();
   }, []);
 
+  const optionHandaler =()=>{
+
+  }
+
   return (
     <div>
+     <h1 className='home-heading'>Welcome to CloudGallery</h1>
+     <button name='add' className='addButton' onClick={UploadImage}>Upload New Image</button><br/>
 
-
-<Upload /> 
-
-      <h1 className='home-heading'>Welcome to CloudGallery</h1>
       {images && images.allImages?.map((img, index) => (
-        <img
-          key={index}
-          src={img.url}
-          alt='Image Preview'
-          style={{ maxWidth: "100px" }}
-        />
+        <div className='data-container' key={index} > 
+               
+        <div className='image-container'>
+
+         <img src={img.url} className='show-image'/>
+        </div>
+        <div className='option-container'>
+         
+        <div className='show-caption'><p>{img.caption}</p></div>
+         <div className='delete'><Link to={`/${img._id}`}>🌐</Link></div>
+        </div>
+            
+        </div>
       ))}
     </div>
   );
