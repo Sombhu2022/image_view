@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./upload.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
-const Upload = () => {
+const Upload = ({reloadParentPage}) => {
 	const [imageData, setImageData] = useState("/vite.svg");
 	const [caption, setCaption] = useState("");
 	const [loading, setLoading] = useState(false);
@@ -44,6 +44,7 @@ const Upload = () => {
 		setLoading(true); // Set loading to true here
 
 		try {
+			
 			const config = { headers: { "Content-Type": "multipart/form-data" } };
 
 			const { data } = await axios.post(
@@ -53,16 +54,25 @@ const Upload = () => {
 			);
 
 			// Set loading to false after the asynchronous operation is complete
-			setLoading(false);
+		    setLoading(false); // Set loading to true here
 			toast.success("Uploaded");
 			setCaption("")
 			setImageData("/vite.svg")
+			
+			const reload=true;
+			reloadParentPage(reload)
+
 			navigate('/#images')
+
 		} catch (error) {
 			toast.error("Poor Internet Speed");
 			console.log(error);
 			setLoading(false); // Make sure to set loading to false in case of an error
 		}
+
+     
+    
+
 	};
 
 	return (
