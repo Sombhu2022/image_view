@@ -21,6 +21,12 @@ const Home = () => {
 		}
 	};
 
+	const reloadPage =(reload)=>{
+		if(reload){
+			getImages();
+		}
+	}
+
 	useEffect(() => {
 		getImages();
 	}, []);
@@ -30,7 +36,7 @@ const Home = () => {
 	return (
 		<div className='container'>
 			<div className='left'>
-				<Upload />
+				<Upload  reloadParentPage={reloadPage} />
 			</div>
 			<div className='right' id='images'>
 				{images &&
