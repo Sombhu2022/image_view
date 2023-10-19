@@ -2,13 +2,13 @@ import { useState } from "react";
 import "./upload.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import demoImage from "./demoImage.jpg";
+import { toast } from "react-hot-toast";
 
 const Upload = () => {
-	const [imageData, setImageData] = useState(demoImage);
-	const [caption, setCaption] = useState();
+	const [imageData, setImageData] = useState("/vite.svg");
+	const [caption, setCaption] = useState("");
 	const [loading, setLoading] = useState(false);
-	const navigate = useNavigate();
+	const navigate = useNavigate()
 
 	const handleImageUpload = (event) => {
 		const file = event.target.files[0];
@@ -36,51 +36,44 @@ const Upload = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-	  
+
 		const myForm = new FormData();
-	  
+
 		myForm.set("imageData", imageData);
 		myForm.append("caption", caption);
 		setLoading(true); // Set loading to true here
-	  
+
 		try {
-		  const config = { headers: { "Content-Type": "multipart/form-data" } };
-	  
-		  const { data } = await axios.post(
-			`http://localhost:8080/api/images`,
-			myForm,
-			config
-		  );
-	  
-		  // Set loading to false after the asynchronous operation is complete
-		  setLoading(false);
-	  
-		  navigate("/");
-	
+			const config = { headers: { "Content-Type": "multipart/form-data" } };
+
+			const { data } = await axios.post(
+				`http://localhost:8080/api/images`,
+				myForm,
+				config
+			);
+
+			// Set loading to false after the asynchronous operation is complete
+			setLoading(false);
+			toast.success("Uploaded");
+			setCaption("")
+			setImageData("/vite.svg")
+			navigate('/#images')
 		} catch (error) {
-		  console.log(error);
-		  setLoading(false); // Make sure to set loading to false in case of an error
+			toast.error("Poor Internet Speed");
+			console.log(error);
+			setLoading(false); // Make sure to set loading to false in case of an error
 		}
-	  };
+	};
 
 	return (
 		<>
 			<div className='form-container'>
 				<form action='' onSubmit={handleSubmit}>
-					<button className='submit' type='submit' value='submit' name='submit' disabled={loading} >
-						{" "}
-						{loading ? "Uploading..." : "Upload"}
-					</button>
-					<br></br>
-					<input
-						className='caption'
-						type='text'
-						required
-						name='caption'
-						placeholder='caption'
-						onChange={captionHandle}
-					/>
-
+					<label className='label' htmlFor='file'>
+						<img id='image' className='input-image' src={imageData} alt='' />
+						<h3>Select Image</h3>
+					</label>
+					<hr />
 					<input
 						hidden
 						className='file'
@@ -90,9 +83,31 @@ const Upload = () => {
 						accept='image/*'
 						onChange={handleImageUpload}
 					/>
-					<label className='label' htmlFor='file'>
-						<img id='image' className='input-image' src={imageData} alt='' />
-					</label>
+
+					<br></br>
+					<h3>Enter a description</h3>
+
+					<textarea
+						className='caption'
+						name='caption'
+						placeholder="Type..."
+						onChange={captionHandle}
+						value={caption}
+						id=''
+						cols='30'
+						rows='10'
+					></textarea>
+
+					<button
+						className='submit'
+						type='submit'
+						value='submit'
+						name='submit'
+						disabled={loading}
+					>
+						{" "}
+						{loading ? "Uploading..." : "Upload"}
+					</button>
 				</form>
 			</div>
 
