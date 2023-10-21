@@ -76,5 +76,9 @@
 
 	.data-container {
 		flex-direction: column;
+		> div{
+			width: 100%;
+
+		}
 	}
 }

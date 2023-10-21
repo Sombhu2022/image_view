@@ -4,6 +4,8 @@ import Home from './pages/home/Home'
 
 import Option from './pages/options/Option'
 import { Toaster } from "react-hot-toast";
+import Login from './pages/auth/login/Login';
+import Register from './pages/auth/register/register'
 
 function App() {
 
@@ -14,6 +16,9 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />}/>
         <Route path='/:id' element={<Option/>}/>
+        <Route path='/auth/registretion' element={<Register/>}/>
+        <Route path='/auth/login' element={<Login/>}/>
+        
       </Routes>
     </Router>
   )

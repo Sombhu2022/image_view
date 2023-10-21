@@ -31,7 +31,7 @@ function Option() {
 			}
 		} catch (err) {
 			console.log(err);
-		}
+		}``
 	};
 
 	return (
