@@ -12,6 +12,13 @@ function Login() {
 
   const hendleSubmit =async (e)=>{
      e.preventDefault();
+   if(Object.entries(data).length == 0){
+      return toast.error('plese input valid data....');
+   }
+   if(!data.password || !data.email){
+    return toast.error('email and password required....');
+   }
+   
      try {
       const config = {headers:{'Content-type':'application/json'}}
       const res= await axios.post('http://localhost:8080/auth/login' , data,config)
