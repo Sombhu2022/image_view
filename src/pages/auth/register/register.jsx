@@ -5,50 +5,62 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import './register.scss'
 
+
 function register() {
-    const [data , setData] = useState({})
+    const [user , setUser] = useState({})
+    const navigate = useNavigate()
+
     const handleData= async(e)=>{
        
-        setData({ ...data , [e.target.name]:e.target.value})
-        console.log(data)
+        setUser({ ...user , [e.target.name]:e.target.value})
+        console.log(user)
     }
 
     const createNewUser= async (e)=>{
         e.preventDefault();
+   
+    try {
 
-        if(Object.entries(data).length == 0){
+        if(Object.entries(user).length == 0){
             return toast.error('plese input valid data....');
          }
-         if(!data.name || !data.email){
-          return toast.error('name and email required....');
+         if(!user.name || !user.email || !user.password){
+          return toast.error('name and email and password required....');
          }
          
-         if(data.password.length < 8){
+         if(user.password.length < 8){
           return toast.error('password must be 8 characters....');
          }
 
-         if(data.password != data.cpassword){
+         if(user.password != user.cpassword){
           return toast.error('password and confirm password are not match...')
         }
         
          
-       try {
-            const config = {headers:{'Content-type':'application/json'}};
-            const res= await axios.post('http://localhost:8080/auth/register',data,config)
-            console.log(res)
-            toast.success(res.data.message)
-
+      
+            //const config = {headers:{'Content-type':'application/json'},  withCedentials:true};
+            const {data} = await axios.post('http://localhost:8080/auth/register',user,  {
+              headers: {
+                "Content-Type": "application/json",
+              },
+              withCredentials: true,
+            })
+            console.log(data)
+            toast.success(data.message)
+           
+            navigate('/')
         } catch (error) {
         console.error('err',error)
         toast.error(error.response.data.message);
-
+        
         }
        
     } 
    
   return (
-    <div>registration form 
-       <form action="" onSubmit={createNewUser}>
+    <div>
+       <form action="" className='auth-form' onSubmit={createNewUser}>
+       <b style={{fontSize:"25px"}}>registration form </b>
        <input type="name"  placeholder='enter fullname ' name='name' onChange={handleData}/>
        <input type="email" name="email" id="email" placeholder='enter Email' onChange={handleData} />
        <input type="password" name="password" id="pass1" placeholder='enter password ' onChange={handleData}/>

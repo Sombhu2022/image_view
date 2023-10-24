@@ -45,17 +45,18 @@ const Upload = ({reloadParentPage}) => {
 
 		try {
 			
-			const config = { headers: { "Content-Type": "multipart/form-data" } };
 
 			const { data } = await axios.post(
 				`http://localhost:8080/api/images`,
-				myForm,
-				config
-			);
+				myForm,{
+				headers: {
+					"Content-Type": "multipart/form-data",
+				  }, 
+				  withCredentials: true, });
 
 			// Set loading to false after the asynchronous operation is complete
 		    setLoading(false); // Set loading to true here
-			toast.success("Uploaded");
+			toast.success(data.message);
 			setCaption("")
 			setImageData("/vite.svg")
 			
@@ -65,9 +66,9 @@ const Upload = ({reloadParentPage}) => {
 			navigate('/#images')
 
 		} catch (error) {
-			toast.error("Poor Internet Speed");
-			console.log(error);
 			setLoading(false); // Make sure to set loading to false in case of an error
+			toast.error(error.response.data.message);
+			console.log(error);
 		}
 
      

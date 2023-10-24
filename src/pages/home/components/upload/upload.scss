@@ -23,7 +23,7 @@ div {
 			}
 
 			img {
-				width: 80%;
+				width: 90%;
 				display: block;
 				margin: auto;
                 border-radius: 10px;
@@ -63,8 +63,40 @@ div {
                 font-size: 18px;
                 cursor: pointer;
                 &:hover{
-                    background-color: rgba(8, 4, 4, 0.415);
+					background-color: rgba(27, 180, 40, 0.829);
+					color: white;
+					border: solid 2px transparent;
                 }
+			}
+		}
+	}
+}
+
+@media only screen and (max-width: 700px) {
+
+	div .form-container form {
+		width: 300px;
+	}
+}
+
+@media (prefers-color-scheme: light) {
+	div .form-container form {
+		img{
+			border: 2px solid rgba(8, 8, 8, 0.404);
+		}
+		.caption{
+			border: 1px solid rgba(8, 8, 8, 0.404);
+			background-color: rgba(30, 28, 28, 0.16);
+            color:black;
+		}
+		.submit{
+			border: 2px solid rgba(8, 8, 8, 0.404);
+            color: rgba(0, 0, 0, 0.607);
+			&:hover{
+				background-color: rgba(31, 81, 35, 0.829);
+				color: white;
+				border: solid 2px transparent;
+
 			}
 		}
 	}
