@@ -3,6 +3,23 @@
 	padding: 0;
 	box-sizing: border-box;
 }
+.logout-button{
+	           background: transparent;
+                color: white;
+                padding: 10px 20px;
+                width: 150px;
+                border: 2px solid white;
+                border-radius: 20px;
+                margin: 10px 0px;
+                transition: 0.3s;
+                font-size: 18px;
+                cursor: pointer;
+                &:hover{
+                    background-color:rgb(242, 95, 95);
+					color: white;
+					border: solid 2px transparent;
+                }
+}
 .container {
 	width: 100%;
 	padding: 0px 5%;
@@ -49,11 +66,23 @@
 		width: 50%;
 		> img {
 			border-radius: 10px;
+
 		}
 		> p {
 			background-color: black;
 			height:100px;
 			width: 100%;
+		}
+		>div{
+			
+			.link{
+            padding: 10px;
+			text-decoration: none; 
+			border-radius: 50%;
+			border: solid 1px rgba(255, 255, 255, 0.21);
+	        background: rgba(103, 103, 140, 0.909);
+            
+			}
 		}
 	}
 }
@@ -82,3 +111,41 @@
 		}
 	}
 }
+
+
+@media (prefers-color-scheme: light) {
+	.logout-button{
+		border: 2px solid rgba(8, 8, 8, 0.404);
+            color: rgba(0, 0, 0, 0.607);
+			
+			&:hover{
+				background: red;
+				color: white;
+				border: solid 2px transparent;
+			}
+	}
+	.left{
+	border: solid 1px rgba(3, 0, 0, 0.21);
+    background:rgba(30, 28, 28, 0.16) ;
+	}
+
+	.data-container{
+		border: solid 1px rgba(3, 0, 0, 0.21);
+		background:rgba(30, 28, 28, 0.16) ;
+
+		>div {
+			>p{
+				background:rgba(30, 28, 28, 0.16) ;
+				color: black;
+				}
+				>div .link{
+				border: solid 1px rgba(3, 0, 0, 0.21);
+                background:rgba(30, 28, 28, 0.936) ;
+
+				}
+
+		} 
+	}
+	
+}
+

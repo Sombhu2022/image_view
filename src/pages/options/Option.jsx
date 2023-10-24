@@ -9,8 +9,11 @@ function Option() {
 
 	const getData = async () => {
 		try {
-			const { data } = await axios.get(
-				`http://localhost:8080/api/images/${id}`
+			const { data } = await axios.get(`http://localhost:8080/api/images/${id}`,{
+				headers: {
+                "Content-Type": "application/json",
+              },
+              withCredentials: true,}
 			);
 			setImage(data.Image);
 		} catch (error) {
@@ -24,7 +27,11 @@ function Option() {
 
 	const deleteImage = async () => {
 		try {
-			const {data} = await axios.delete(`http://localhost:8080/api/images/${id}`)
+			const {data} = await axios.delete(`http://localhost:8080/api/images/${id}`,{
+				headers: {
+                "Content-Type": "application/json",
+              },
+              withCredentials: true,})
 
 			if(data.success === true ){
 				navigete('/')
