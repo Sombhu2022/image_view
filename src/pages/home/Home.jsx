@@ -55,7 +55,7 @@ const Home = () => {
               withCredentials: true,});
 
 			toast.success(data.message)
-			navigete('/auth/login')
+			navigete('/auth/login')	
 		} catch (error) {
 			console.error(error);
 		}

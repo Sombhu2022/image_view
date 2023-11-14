@@ -6,8 +6,9 @@ function Option() {
 	const navigete = useNavigate()
 	const { id } = useParams();
 	const [image, setImage] = useState({});
-
+ 
 	const getData = async () => {
+		// unique image
 		try {
 			const { data } = await axios.get(`http://localhost:8080/api/images/${id}`,{
 				headers: {
