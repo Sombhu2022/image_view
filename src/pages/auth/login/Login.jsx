@@ -49,6 +49,13 @@ function Login() {
       <input type="email" name="email" id="" placeholder='enter valid Email' onChange={hendleData} />
       <input type="password" name="password" id="" placeholder='enter vaild password ' onChange={hendleData}/>
       <button type='submit'>Log In</button>
+     
+      <p>If you loss your password
+         <strong>
+          <Link to={'/auth/forgotPassword'}><span >Forget password</span></Link>
+        </strong> 
+      </p>
+      <br />
       <hr />
       <b>If you are not Register  </b>
       <Link to={'/auth/registretion'}><button type=''>Register</button></Link>

@@ -6,6 +6,9 @@ import Option from './pages/options/Option.jsx'
 import { Toaster } from "react-hot-toast";
 import Login from './pages/auth/login/Login.jsx';
 import Register from './pages/auth/register/register.jsx'
+import ForgotPass from './pages/auth/pass/ForgotPass';
+import Otp from './pages/auth/pass/Otp.jsx';
+import NewPass from './pages/auth/pass/NewPass.jsx';
 
 function App() {
 
@@ -18,6 +21,9 @@ function App() {
         <Route path='/:id' element={<Option/>}/>
         <Route path='/auth/registretion' element={<Register/>}/>
         <Route path='/auth/login' element={<Login/>}/>
+        <Route path='/auth/forgotPassword' element={<ForgotPass/>}/>
+        <Route path='/auth/forgotPassword/otp' element={<Otp/>}/>
+        <Route path='/auth/forgotPassword/newpass' element={<NewPass/>}/>
         
       </Routes>
     </Router>
