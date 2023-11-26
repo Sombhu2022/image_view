@@ -66,9 +66,9 @@ const Home = () => {
 		<div>
 			<button className="logout-button" onClick={userLogout}>Logout</button>
 		<div className='container'>
-			<div className='left'>
+			{/* <div className='left'>
 				<Upload  reloadParentPage={reloadPage} />
-			</div>
+			</div> */}
 			<div className='right' id='images'>
 				{images &&
 					images.allImages?.map((img, index) => (
@@ -87,24 +87,7 @@ const Home = () => {
 					))}
 			</div>
 
-			{/* <h1 className='home-heading'>Welcome to CloudGallery</h1>
-     <button name='add' className='addButton' onClick={UploadImage}>Upload New Image</button><br/>
-
-      {images && images.allImages?.map((img, index) => (
-        <div className='data-container' key={index} > 
-               
-        <div className='image-container'>
-
-         <img src={img.url} className='show-image'/>
-        </div>
-        <div className='option-container'>
-         
-        <div className='show-caption'><p>{img.caption}</p></div>
-         <div className='delete'><Link to={`/${img._id}`}>🌐</Link></div>
-        </div>
-            
-        </div>
-      ))} */}
+			
 		</div></div>
 	);
 };
