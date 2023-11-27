@@ -1,15 +1,15 @@
 import './bottom.scss';
 import { Link } from 'react-router-dom';
 
-const Bottom = () => {
+const Bottom = ({toggleView}) => {
   return (
     <div className='bottom'>
-			<div>
+			<div onClick={()=>toggleView('p')}>
 				<Link to={"/"}>
 					Photos <i className="fa-regular fa-image"></i>
 				</Link>
 			</div>
-			<div>
+			<div onClick={()=>toggleView('t')}>
 				<Link  to={"/"}>
 					Texts <i className="fa-solid fa-envelope-open-text"></i>
 				</Link>

@@ -5,6 +5,11 @@ import sani from "../../../assets/sani.jpg";
 
 const Header = () => {
 	const [dp, setDp] = useState(sani);
+	const [isOpen, setIsOpen] = useState(false);
+
+	const toggleOpen = () => {
+		setIsOpen(!isOpen);
+	};
 	return (
 		<div className='header-container'>
 			<div className='header'>
@@ -17,10 +22,10 @@ const Header = () => {
 					<Link className='upload-btn' to={"/"}>
 						Upload <i className='fa-solid fa-cloud-arrow-up'></i>
 					</Link>
-					<Link className='profile-options' to={"/"}>
+					<Link onClick={toggleOpen} className='profile-options' to={"/"}>
 						<img className='img' src={dp} alt='' />
 					</Link>
-					<div className='options'>
+					<div className={`${isOpen ? "open" : ""} options`}>
 						<div>
 							<i class='fa-solid fa-right-from-bracket'></i> Logout
 						</div>

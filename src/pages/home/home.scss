@@ -3,6 +3,15 @@
 	padding: 0;
 	box-sizing: border-box;
 }
+.open{
+	display: block;
+}
+.photo-container{
+	display: none;
+}
+.text-container{
+	display: none;
+}
 .logout-button{
 	           background: transparent;
                 color: white;

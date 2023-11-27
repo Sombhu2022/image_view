@@ -10,7 +10,6 @@ import ForgotPass from './pages/auth/pass/ForgotPass';
 import Otp from './pages/auth/pass/Otp.jsx';
 import NewPass from './pages/auth/pass/NewPass.jsx';
 import Header from './pages/lauout/header/Header.jsx';
-import Bottom from './pages/lauout/bottom/Bottom.jsx';
 
 function App() {
 
@@ -29,7 +28,6 @@ function App() {
         <Route path='/auth/forgotPassword/newpass' element={<NewPass/>}/>
         
       </Routes>
-      <Bottom/>
     </Router>
   )
 }
