@@ -19,7 +19,7 @@ const Header = () => {
 					</Link>
 				</div>
 				<div>
-					<Link className='upload-btn' to={"/"}>
+					<Link className='upload-btn' to={"/upload"}>
 						Upload <i className='fa-solid fa-cloud-arrow-up'></i>
 					</Link>
 					<Link onClick={toggleOpen} className='profile-options' to={"/"}>
@@ -27,7 +27,7 @@ const Header = () => {
 					</Link>
 					<div className={`${isOpen ? "open" : ""} options`}>
 						<div>
-							<i class='fa-solid fa-right-from-bracket'></i> Logout
+							<i className='fa-solid fa-right-from-bracket'></i> Logout
 						</div>
 						<div>
 							<i className='fa-solid fa-user'></i> Profile

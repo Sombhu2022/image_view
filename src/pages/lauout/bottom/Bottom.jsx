@@ -5,14 +5,14 @@ const Bottom = ({toggleView}) => {
   return (
     <div className='bottom'>
 			<div onClick={()=>toggleView('p')}>
-				<Link to={"/"}>
+				<p>
 					Photos <i className="fa-regular fa-image"></i>
-				</Link>
+				</p>
 			</div>
 			<div onClick={()=>toggleView('t')}>
-				<Link  to={"/"}>
+				<p >
 					Texts <i className="fa-solid fa-envelope-open-text"></i>
-				</Link>
+				</p>
 				
 			</div>
 		</div>

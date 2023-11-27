@@ -10,6 +10,7 @@ import ForgotPass from './pages/auth/pass/ForgotPass';
 import Otp from './pages/auth/pass/Otp.jsx';
 import NewPass from './pages/auth/pass/NewPass.jsx';
 import Header from './pages/lauout/header/Header.jsx';
+import Upload from './pages/home/components/upload/Upload.jsx';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
       <Toaster />
       <Routes>
         <Route path='/' element={<Home />}/>
+        <Route path='/upload' element={<Upload />}/>
         <Route path='/:id' element={<Option/>}/>
         <Route path='/auth/registretion' element={<Register/>}/>
         <Route path='/auth/login' element={<Login/>}/>
