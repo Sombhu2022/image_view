@@ -9,12 +9,15 @@ import Register from './pages/auth/register/register.jsx'
 import ForgotPass from './pages/auth/pass/ForgotPass';
 import Otp from './pages/auth/pass/Otp.jsx';
 import NewPass from './pages/auth/pass/NewPass.jsx';
+import Header from './pages/lauout/header/Header.jsx';
+import Bottom from './pages/lauout/bottom/Bottom.jsx';
 
 function App() {
 
 
   return (
     <Router>
+      <Header/>
       <Toaster />
       <Routes>
         <Route path='/' element={<Home />}/>
@@ -26,6 +29,7 @@ function App() {
         <Route path='/auth/forgotPassword/newpass' element={<NewPass/>}/>
         
       </Routes>
+      <Bottom/>
     </Router>
   )
 }
