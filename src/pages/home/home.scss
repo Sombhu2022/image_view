@@ -3,6 +3,19 @@
 	padding: 0;
 	box-sizing: border-box;
 }
+.open{
+	display: block;
+}
+.home-container{
+	margin-bottom: 100px;
+	margin-top: 10px;
+}
+.photo-container{
+	display: none;
+}
+.text-container{
+	display: none;
+}
 .logout-button{
 	           background: transparent;
                 color: white;

@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import "./upload.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-hot-toast";
 
-const Upload = ({reloadParentPage}) => {
+
+const Upload = ({ reloadParentPage }) => {
 	const [imageData, setImageData] = useState("/vite.svg");
 	const [caption, setCaption] = useState("");
 	const [loading, setLoading] = useState(false);
-	const navigate = useNavigate()
+	const navigate = useNavigate();
 
 	const handleImageUpload = (event) => {
 		const file = event.target.files[0];
@@ -29,51 +29,31 @@ const Upload = ({reloadParentPage}) => {
 		}
 	};
 
-	function captionHandle(event) {
-		//console.log(event.target.name)
-		setCaption(event.target.value);
-	}
-
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-
 		const myForm = new FormData();
-
 		myForm.set("imageData", imageData);
 		myForm.append("caption", caption);
-		setLoading(true); // Set loading to true here
-
+		setLoading(true);
 		try {
-			
-
 			const { data } = await axios.post(
 				`http://localhost:8080/api/images`,
-				myForm,{
-				headers: {
-					"Content-Type": "multipart/form-data",
-				  }, 
-				  withCredentials: true, });
+				myForm,
+				{
+					headers: {
+						"Content-Type": "multipart/form-data",
+					},
+					withCredentials: true,
+				}
+			);
 
-			// Set loading to false after the asynchronous operation is complete
-		    setLoading(false); // Set loading to true here
-			toast.success(data.message);
-			setCaption("")
-			setImageData("/vite.svg")
-			
-			const reload=true;
-			reloadParentPage(reload)
-
-			navigate('/#images')
-
+			setLoading(false);
+			setCaption("");
+			setImageData("/vite.svg");
+			navigate("/");
 		} catch (error) {
-			setLoading(false); // Make sure to set loading to false in case of an error
-			toast.error(error.response.data.message);
-			console.log(error);
+			setLoading(false);
 		}
-
-     
-    
-
 	};
 
 	return (
@@ -101,8 +81,8 @@ const Upload = ({reloadParentPage}) => {
 					<textarea
 						className='caption'
 						name='caption'
-						placeholder="Type..."
-						onChange={captionHandle}
+						placeholder='Type...'
+						onChange={(e)=>setCaption(e.target.value)}
 						value={caption}
 						id=''
 						cols='30'
@@ -112,8 +92,6 @@ const Upload = ({reloadParentPage}) => {
 					<button
 						className='submit'
 						type='submit'
-						value='submit'
-						name='submit'
 						disabled={loading}
 					>
 						{" "}
