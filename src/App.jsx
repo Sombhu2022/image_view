@@ -11,8 +11,16 @@ import Otp from './pages/auth/pass/Otp.jsx';
 import NewPass from './pages/auth/pass/NewPass.jsx';
 import Header from './pages/lauout/header/Header.jsx';
 import Upload from './pages/home/components/upload/Upload.jsx';
+import { getUser } from './redux/slices/auth.js';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUser())
+  }, [dispatch])
 
 
   return (
