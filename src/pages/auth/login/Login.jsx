@@ -4,23 +4,19 @@ import "./login.scss";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser, selectUser } from "../../../redux/slices/auth";
+import { loginUser, selectUser } from "../../../redux/slices/authSlice";
 
 function Login() {
 	const [user, setUser] = useState({});
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const {isAuthenticated} = useSelector(selectUser)
+	const { isAuthenticated } = useSelector(selectUser);
 
 	useEffect(() => {
-		
 		if (isAuthenticated === true) {
 			navigate("/");
 		}
 	}, [dispatch, isAuthenticated, navigate]);
-
-
-
 
 	const hendleData = (e) => {
 		setUser({ ...user, [e.target.name]: e.target.value });
@@ -44,14 +40,14 @@ function Login() {
 				<input
 					type='email'
 					name='email'
-					id=''
+					id='userEmail'
 					placeholder='enter valid Email'
 					onChange={hendleData}
 				/>
 				<input
 					type='password'
 					name='password'
-					id=''
+					id='UserPassword'
 					placeholder='enter vaild password '
 					onChange={hendleData}
 				/>
@@ -68,7 +64,7 @@ function Login() {
 				<br />
 				<hr />
 				<b>If you are not Register </b>
-				<Link to={"/auth/registretion"}>
+				<Link to={"/register"}>
 					<button type=''>Register</button>
 				</Link>
 			</form>

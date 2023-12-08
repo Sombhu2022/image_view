@@ -3,7 +3,7 @@ import "./header.scss";
 import { Link } from "react-router-dom";
 import sani from "../../../assets/sani.jpg";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutUser, selectUser } from "../../../redux/slices/auth";
+import { logoutUser, selectUser } from "../../../redux/slices/authSlice";
 
 const Header = () => {
 	const [dp, setDp] = useState(sani);
@@ -41,9 +41,11 @@ const Header = () => {
 							<div onClick={userLogout}>
 								<i className='fa-solid fa-right-from-bracket'></i> Logout
 							</div>
-							<div>
-								<i className='fa-solid fa-user'></i> Profile
-							</div>
+							<Link to={"/profile"}>
+								<div>
+									<i className='fa-solid fa-user'></i> Profile
+								</div>
+							</Link>
 						</div>
 					) : (
 						""
