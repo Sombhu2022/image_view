@@ -55,7 +55,7 @@ export const logoutUser = createAsyncThunk('user/logoutUser', async () => {
   return response.data;
 });
 
-// get user details
+// get user details - profile
 export const getUser = createAsyncThunk('user/getUser', async () => {
 
   const response = await axios.get(`${base_url}/api/user/profile`, {

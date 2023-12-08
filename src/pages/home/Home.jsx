@@ -4,7 +4,7 @@ import Bottom from "../lauout/bottom/Bottom";
 import PhotosPage from "./components/view/PhotosPage";
 import TextsPage from "./components/view/TextsPage";
 import { useSelector } from "react-redux";
-import { selectUser } from "../../redux/slices/auth";
+import { selectUser } from "../../redux/slices/authSlice";
 import { useNavigate } from "react-router-dom";
 const Home = () => {
 	const [view, setView] = useState("p");
@@ -13,7 +13,7 @@ const Home = () => {
 	useEffect(() => {
 		
 		if (isAuthenticated !== true) {
-			navigate("/auth/login");
+			navigate("/login");
 		}
 	}, [ isAuthenticated, navigate]);
 

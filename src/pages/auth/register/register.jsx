@@ -3,24 +3,19 @@ import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import "./register.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser, selectUser } from "../../../redux/slices/auth";
+import { registerUser, selectUser } from "../../../redux/slices/authSlice";
 
 function register() {
 	const [user, setUser] = useState({});
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-  const {isAuthenticated} = useSelector(selectUser)
-
+	const { isAuthenticated } = useSelector(selectUser);
 
 	useEffect(() => {
-		
 		if (isAuthenticated === true) {
 			navigate("/");
 		}
 	}, [dispatch, isAuthenticated, navigate]);
-
-
-
 
 	const handleData = async (e) => {
 		setUser({ ...user, [e.target.name]: e.target.value });
@@ -86,7 +81,7 @@ function register() {
 				<button type='submit'> Register </button>
 				<hr />
 				<b>You have alrady register </b>
-				<Link to={"/auth/login"}>
+				<Link to={"/login"}>
 					{" "}
 					<button> Log in </button>{" "}
 				</Link>
