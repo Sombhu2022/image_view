@@ -5,8 +5,9 @@ import "./register.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser, selectUser } from "../../../redux/slices/authSlice";
 
-function register() {
+function Register() {
 	const [user, setUser] = useState({});
+	const [avatar, setAvatar] = useState("/Profile.png");
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const { isAuthenticated } = useSelector(selectUser);
@@ -16,6 +17,21 @@ function register() {
 			navigate("/");
 		}
 	}, [dispatch, isAuthenticated, navigate]);
+
+	const handleFileChange = (e) => {
+		const file = e.target.files[0];
+
+		if (file) {
+			const reader = new FileReader();
+			reader.onload = function (e) {
+				setAvatar(e.target.result);
+			};
+
+			reader.readAsDataURL(file);
+		} else {
+			console.log("Error happened");
+		}
+	};
 
 	const handleData = async (e) => {
 		setUser({ ...user, [e.target.name]: e.target.value });
@@ -39,8 +55,14 @@ function register() {
 			if (user.password != user.cpassword) {
 				return toast.error("password and confirm password are not match...");
 			}
+			const myForm = new FormData();
 
-			dispatch(registerUser(user));
+			myForm.set("name", user.name);
+			myForm.set("email", user.email);
+			myForm.set("password", user.password);
+			myForm.set("avatar", avatar);
+
+			dispatch(registerUser(myForm));
 		} catch (error) {
 			console.error("err", error);
 			toast.error(error.response.data.message);
@@ -51,6 +73,13 @@ function register() {
 		<div>
 			<form action='' className='auth-form' onSubmit={createNewUser}>
 				<b style={{ fontSize: "25px" }}>registration form </b>
+
+				<input
+					className='file-input'
+					type='file'
+					required
+					onChange={handleFileChange}
+				/>
 				<input
 					type='name'
 					placeholder='enter fullname '
@@ -90,4 +119,4 @@ function register() {
 	);
 }
 
-export default register;
+export default Register;
