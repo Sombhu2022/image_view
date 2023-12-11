@@ -46,6 +46,9 @@ const Header = () => {
 									<i className='fa-solid fa-user'></i> Profile
 								</div>
 							</Link>
+							<div onClick={toggleOpen}>
+							<i className="fa-solid fa-xmark"></i> Close
+							</div>
 						</div>
 					) : (
 						""
