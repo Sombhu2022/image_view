@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./upload.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import Compressor from 'compressorjs';
 
 const Upload = ({ reloadParentPage }) => {
 	const [imageData, setImageData] = useState("/vite.svg");
@@ -31,6 +31,7 @@ const Upload = ({ reloadParentPage }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		
 		const myForm = new FormData();
 		myForm.set("imageData", imageData);
 		myForm.append("caption", caption);
