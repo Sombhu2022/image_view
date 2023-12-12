@@ -4,7 +4,7 @@ import Home from "./pages/home/Home";
 import Option from "./pages/options/Option.jsx";
 import { Toaster } from "react-hot-toast";
 import Login from "./pages/auth/login/Login.jsx";
-import Register from "./pages/auth/register/register.jsx";
+import Register from "./pages/auth/register/Register.jsx";
 import ForgotPass from "./pages/auth/pass/ForgotPass";
 import Otp from "./pages/auth/pass/Otp.jsx";
 import NewPass from "./pages/auth/pass/NewPass.jsx";
@@ -29,9 +29,9 @@ function App() {
 			<Header />
 			<Toaster />
 			<Routes>
-				<Route path='/' element={<Home />} />
-
+				{/* Restricted routes */}
 				<Route element={<ProtectedRoute />}>
+					<Route path='/' element={<Home />} />
 					<Route path='/upload' element={<Upload />} />
 					<Route path='/profile' element={<Profile />} />
 				</Route>

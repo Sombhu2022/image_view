@@ -10,12 +10,7 @@ const Home = () => {
 	const [view, setView] = useState("p");
 	const {isAuthenticated} = useSelector(selectUser)
 	const navigate = useNavigate()
-	useEffect(() => {
-		
-		if (isAuthenticated !== true) {
-			navigate("/login");
-		}
-	}, [ isAuthenticated, navigate]);
+	
 
 
 	const toggleView = (param) => {
