@@ -32,6 +32,11 @@ const Header = () => {
 							<Link className='upload-btn' to={"/upload"}>
 								Upload <i className='fa-solid fa-cloud-arrow-up'></i>
 							</Link>
+
+							<div onClick={toggleOpen}>
+							<i className="fa-solid fa-xmark"></i> Close
+							</div>
+						</div>
 							<Link onClick={toggleOpen} className='profile-options' to={"/"}>
 								<img className='img' src={user?.avatar?.url} alt={user?.name} />
 							</Link>
@@ -50,6 +55,7 @@ const Header = () => {
 								</Link>
 							</div>
 						</>
+
 					) : (
 						""
 					)}
