@@ -33,10 +33,6 @@ const Header = () => {
 								Upload <i className='fa-solid fa-cloud-arrow-up'></i>
 							</Link>
 
-							<div onClick={toggleOpen}>
-							<i className="fa-solid fa-xmark"></i> Close
-							</div>
-						</div>
 							<Link onClick={toggleOpen} className='profile-options' to={"/"}>
 								<img className='img' src={user?.avatar?.url} alt={user?.name} />
 							</Link>
@@ -53,9 +49,11 @@ const Header = () => {
 										<i className='fa-solid fa-user'></i> Profile
 									</div>
 								</Link>
+								<div onClick={toggleOpen}>
+									<i className='fa-solid fa-xmark'></i> Close
+								</div>
 							</div>
 						</>
-
 					) : (
 						""
 					)}

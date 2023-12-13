@@ -2,106 +2,121 @@ import { useEffect, useState } from "react";
 import "./upload.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Compressor from 'compressorjs';
+import { useDispatch, useSelector } from "react-redux";
+import Resizer from "react-image-file-resizer";
+import Loader from "../../../lauout/loader/Loader";
 
-const Upload = ({ reloadParentPage }) => {
-	const [imageData, setImageData] = useState("/vite.svg");
+import imageCompression from "browser-image-compression";
+
+import {
+	postImage,
+	resetState,
+	selectImages,
+} from "../../../../redux/slices/imageSlice";
+
+const Upload = () => {
+	const [imageData, setImageData] = useState();
+	const [imgPreview, setImgPreview] = useState("/vite.svg");
 	const [caption, setCaption] = useState("");
 	const [loading, setLoading] = useState(false);
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const { status } = useSelector(selectImages);
 
-	const handleImageUpload = (event) => {
-		const file = event.target.files[0];
+	const handleImageUpload = async (event) => {
+		const imageFile = event.target.files[0];
 
-		if (file) {
-			// Use a FileReader to read the selected image file
+		const options = {
+			maxSizeMB: 1,
+			maxWidthOrHeight: 1920,
+			useWebWorker: true,
+		};
+		try {
+			const compressedFile = await imageCompression(imageFile, options);
+
 			const reader = new FileReader();
 
 			reader.onload = function (e) {
 				// Set the result of the FileReader to the state variable
 				setImageData(e.target.result);
+				setImgPreview(e.target.result);
 			};
 
-			reader.readAsDataURL(file);
-		} else {
-			// Clear the state variable if no file is selected ..
-			setImageData(null);
+			reader.readAsDataURL(compressedFile); // write your own logic
+		} catch (error) {
+			console.log(error);
 		}
 	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		
+
 		const myForm = new FormData();
 		myForm.set("imageData", imageData);
 		myForm.append("caption", caption);
-		setLoading(true);
-		try {
-			const { data } = await axios.post(
-				`http://localhost:8080/api/images`,
-				myForm,
-				{
-					headers: {
-						"Content-Type": "multipart/form-data",
-					},
-					withCredentials: true,
-				}
-			);
-
-			setLoading(false);
-			setCaption("");
-			setImageData("/vite.svg");
-			navigate("/");
-		} catch (error) {
-			setLoading(false);
+		dispatch(resetState());
+		dispatch(postImage(myForm));
+		if (status === "succeeded") {
+			navigate('/')
 		}
 	};
+	
+	
 
 	return (
 		<>
-			<div className='form-container'>
-				<form action='' onSubmit={handleSubmit}>
-					<label className='label' htmlFor='file'>
-						<img id='image' className='input-image' src={imageData} alt='' />
-						<h3>Select Image</h3>
-					</label>
-					<hr />
-					<input
-						hidden
-						className='file'
-						type='file'
-						name='file'
-						id='file'
-						accept='image/*'
-						onChange={handleImageUpload}
-					/>
+			{status === "loading" ? (
+				<Loader />
+			) : (
+				<>
+					<div className='form-container'>
+						<form action='' onSubmit={handleSubmit}>
+							<label className='label' htmlFor='file'>
+								{imgPreview && (
+									<img
+										id='image'
+										className='input-image'
+										src={imgPreview}
+										alt=''
+									/>
+								)}
+								<h3>Select Image</h3>
+							</label>
+							<hr />
+							<input
+								hidden
+								className='file'
+								type='file'
+								name='file'
+								id='file'
+								accept='image/*'
+								onChange={handleImageUpload}
+							/>
 
-					<br></br>
-					<h3>Enter a description</h3>
+							<br></br>
+							<h3>Enter a description</h3>
 
-					<textarea
-						className='caption'
-						name='caption'
-						placeholder='Type...'
-						onChange={(e)=>setCaption(e.target.value)}
-						value={caption}
-						id=''
-						cols='30'
-						rows='10'
-					></textarea>
+							<textarea
+								className='caption'
+								name='caption'
+								placeholder='Type...'
+								onChange={(e) => setCaption(e.target.value)}
+								value={caption}
+								id=''
+								cols='30'
+								rows='10'
+							></textarea>
 
-					<button
-						className='submit'
-						type='submit'
-						disabled={loading}
-					>
-						{" "}
-						{loading ? "Uploading..." : "Upload"}
-					</button>
-				</form>
-			</div>
+							<button className='submit' type='submit' disabled={loading}>
+								{" "}
+								{loading ? "Uploading..." : "Upload"}
+							</button>
+						</form>
+					</div>
 
-			<div className='show-data'></div>
+					
+				</>
+			)}
 		</>
 	);
 };

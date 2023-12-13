@@ -7,6 +7,7 @@ const initialState = {
     images: [],
     selectedImage: {},
     status: 'idle',
+    postStatus: 'idle',
     error: null,
 };
 
@@ -14,6 +15,21 @@ const initialState = {
 export const allImages = createAsyncThunk('images/allImages', async () => {
 
     const response = await axios.get(`${base_url}/api/images`,
+
+        {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            withCredentials: true,
+        });
+
+    return response.data;
+});
+// Define an async thunk to fetch products from the API
+export const postImage = createAsyncThunk('images/postImage', async (myForm) => {
+
+    const response = await axios.post(`${base_url}/api/images`,
+        myForm,
 
         {
             headers: {
@@ -43,7 +59,14 @@ export const deleteImage = createAsyncThunk('images/deleteImage', async (id) => 
 const imageSlice = createSlice({
     name: 'image',
     initialState,
-    reducers: {},
+    reducers: {
+        resetState: (state, action) => {
+
+            state.error = null,
+                state.status = "idle"
+
+        },
+    },
     extraReducers: (builder) => {
         builder
             // all images
@@ -61,6 +84,26 @@ const imageSlice = createSlice({
                 state.status = 'failed';
                 state.error = action.error.message;
             })
+
+
+            // postImage
+
+            .addCase(postImage.pending, (state) => {
+                state.postStatus = 'loading';
+                state.error = null
+            })
+            .addCase(postImage.fulfilled, (state, action) => {
+                state.postStatus = 'succeeded';
+                state.images = action.payload.allImages;
+
+
+            })
+            .addCase(postImage.rejected, (state, action) => {
+                state.postStatus = 'failed';
+                state.error = action.error.message;
+            })
+
+            // delete image
             .addCase(deleteImage.pending, (state) => {
                 state.status = 'loading';
                 state.error = null
@@ -79,6 +122,8 @@ const imageSlice = createSlice({
     },
 });
 
+
+export const { resetState} = imageSlice.actions;
 export default imageSlice.reducer;
 
 // Export any actions you need

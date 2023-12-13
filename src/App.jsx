@@ -15,6 +15,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import Profile from "./pages/user/Profile.jsx";
+import Example from "./pages/home/components/upload/Example.jsx";
 
 function App() {
 	const dispatch = useDispatch();
@@ -36,6 +37,7 @@ function App() {
 					<Route path='/profile' element={<Profile />} />
 				</Route>
 
+				<Route path='/example' element={<Example />} />
 				<Route path='/register' element={<Register />} />
 				<Route path='/login' element={<Login />} />
 
