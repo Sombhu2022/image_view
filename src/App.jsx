@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/home/Home";
 
 import Option from "./pages/options/Option.jsx";
-import { Toaster } from "react-hot-toast";
 import Login from "./pages/auth/login/Login.jsx";
 import Register from "./pages/auth/register/Register.jsx";
 import ForgotPass from "./pages/auth/pass/ForgotPass";
@@ -16,6 +15,8 @@ import { useDispatch, useSelector } from "react-redux";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import Profile from "./pages/user/Profile.jsx";
 import Example from "./pages/home/components/upload/Example.jsx";
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/ReactToastify.min.css";
 
 function App() {
 	const dispatch = useDispatch();
@@ -28,7 +29,7 @@ function App() {
 	return (
 		<Router>
 			<Header />
-			<Toaster />
+			<ToastContainer />
 			<Routes>
 				{/* Restricted routes */}
 				<Route element={<ProtectedRoute />}>

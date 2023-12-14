@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "./login.scss";
-import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, selectUser } from "../../../redux/slices/authSlice";
@@ -25,10 +24,10 @@ function Login() {
 	const handleLogin = async (e) => {
 		e.preventDefault();
 		if (Object.entries(user).length == 0) {
-			return toast.error("plese input valid data....");
+			// return toast.error("plese input valid data....");
 		}
 		if (!user.password || !user.email) {
-			return toast.error("email and password required....");
+			// return toast.error("email and password required....");
 		}
 		dispatch(loginUser(user));
 	};

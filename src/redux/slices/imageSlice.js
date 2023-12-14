@@ -65,6 +65,7 @@ const imageSlice = createSlice({
             state.error = null,
                 state.status = "idle"
 
+
         },
     },
     extraReducers: (builder) => {
@@ -123,7 +124,7 @@ const imageSlice = createSlice({
 });
 
 
-export const { resetState} = imageSlice.actions;
+export const { resetState } = imageSlice.actions;
 export default imageSlice.reducer;
 
 // Export any actions you need
