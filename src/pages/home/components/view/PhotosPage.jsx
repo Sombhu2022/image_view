@@ -2,21 +2,27 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import "./photosPage.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { allImages, deleteImage, selectImages } from "../../../../redux/slices/imageSlice";
+import {
+	allImages,
+	deleteImage,
+	selectImages,
+} from "../../../../redux/slices/imageSlice";
+import Loader from "../../../lauout/loader/Loader";
 
 const PhotosPage = () => {
-	const {images} = useSelector(selectImages)
+	const { images, postStatus, error } = useSelector(selectImages);
 	const dispatch = useDispatch();
 
-
-
 	useEffect(() => {
-		
-		dispatch(allImages())
-	}, [dispatch]);
+		dispatch(allImages());
+		if (error) {
+			toast.error("Request failed!")
+			
+		}
+	}, [error]);
 
 	const deleteImageHandler = (id) => {
-		dispatch(deleteImage(id))
+		dispatch(deleteImage(id));
 	};
 
 	const handleDownload = (imageUrl, fileName) => {
@@ -63,6 +69,7 @@ const PhotosPage = () => {
 						</div>
 					</div>
 				))}
+			{postStatus === "loading" ? <Loader /> : ""}
 		</div>
 	);
 };

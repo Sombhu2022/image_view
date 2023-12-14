@@ -8,10 +8,8 @@ import { selectUser } from "../../redux/slices/authSlice";
 import { useNavigate } from "react-router-dom";
 const Home = () => {
 	const [view, setView] = useState("p");
-	const {isAuthenticated} = useSelector(selectUser)
-	const navigate = useNavigate()
-	
-
+	const { isAuthenticated } = useSelector(selectUser);
+	const navigate = useNavigate();
 
 	const toggleView = (param) => {
 		setView(param);
