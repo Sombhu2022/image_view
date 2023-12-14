@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Resizer from "react-image-file-resizer";
 import Loader from "../../../lauout/loader/Loader";
-
+import { toast } from "react-toastify";
 import imageCompression from "browser-image-compression";
 
 import {
@@ -16,7 +16,7 @@ import {
 
 const Upload = () => {
 	const [imageData, setImageData] = useState();
-	const [imgPreview, setImgPreview] = useState("/vite.svg");
+	const [imgPreview, setImgPreview] = useState("/image.png");
 	const [caption, setCaption] = useState("");
 	const [loading, setLoading] = useState(false);
 	const navigate = useNavigate();
@@ -50,18 +50,21 @@ const Upload = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-
+		toast.info("Image Uploading!", {
+			position: "top-right",
+			autoClose: 5000,
+			closeOnClick: true,
+			theme: "colored",
+		});
 		const myForm = new FormData();
 		myForm.set("imageData", imageData);
 		myForm.append("caption", caption);
 		dispatch(resetState());
 		dispatch(postImage(myForm));
 		if (status === "succeeded") {
-			navigate('/')
+			navigate("/");
 		}
 	};
-	
-	
 
 	return (
 		<>
@@ -108,13 +111,10 @@ const Upload = () => {
 							></textarea>
 
 							<button className='submit' type='submit' disabled={loading}>
-								{" "}
-								{loading ? "Uploading..." : "Upload"}
+							Upload <i className='fa-solid fa-cloud-arrow-up'></i>
 							</button>
 						</form>
 					</div>
-
-					
 				</>
 			)}
 		</>

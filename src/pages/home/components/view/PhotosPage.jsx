@@ -1,28 +1,42 @@
 import React, { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 import "./photosPage.scss";
 import { useDispatch, useSelector } from "react-redux";
 import {
 	allImages,
 	deleteImage,
+	resetState,
 	selectImages,
 } from "../../../../redux/slices/imageSlice";
 import Loader from "../../../lauout/loader/Loader";
+import { toast } from "react-toastify";
 
 const PhotosPage = () => {
-	const { images, postStatus, error } = useSelector(selectImages);
+	const { images, postStatus, error  } = useSelector(selectImages);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
+		dispatch(resetState())
 		dispatch(allImages());
 		if (error) {
-			toast.error("Request failed!")
-			
+			toast.error("Try again!", {
+				position: "top-right",
+				autoClose: 5000,
+				closeOnClick: true,
+				theme: "colored",
+			});
 		}
+		
 	}, [error]);
 
 	const deleteImageHandler = (id) => {
+		dispatch(resetState())
 		dispatch(deleteImage(id));
+		toast.success("Deleted Successfully!", {
+			position: "top-right",
+			autoClose: 5000,
+			closeOnClick: true,
+			theme: "colored",
+		});
 	};
 
 	const handleDownload = (imageUrl, fileName) => {
