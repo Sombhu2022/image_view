@@ -3,7 +3,6 @@ import Home from "./pages/home/Home";
 
 import Option from "./pages/options/Option.jsx";
 import Login from "./pages/auth/login/Login.jsx";
-import Register from "./pages/auth/register/Register.jsx";
 import ForgotPass from "./pages/auth/pass/ForgotPass";
 import Otp from "./pages/auth/pass/Otp.jsx";
 import NewPass from "./pages/auth/pass/NewPass.jsx";
@@ -14,9 +13,9 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import Profile from "./pages/user/Profile.jsx";
-import Example from "./pages/home/components/upload/Example.jsx";
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/ReactToastify.min.css";
+import Register from './pages/auth/register/Register.jsx';
 
 function App() {
 	const dispatch = useDispatch();
@@ -38,7 +37,6 @@ function App() {
 					<Route path='/profile' element={<Profile />} />
 				</Route>
 
-				<Route path='/example' element={<Example />} />
 				<Route path='/register' element={<Register />} />
 				<Route path='/login' element={<Login />} />
 

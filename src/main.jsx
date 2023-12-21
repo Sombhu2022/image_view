@@ -12,5 +12,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </Provider>
   </React.StrictMode>,
 )
-export const base_url = 'http://localhost:8080'
+
+// in local setup use this 
+// export const base_url = 'http://localhost:8080'
+
+
+// in production code push this 
+export const base_url = 'https://cloudgallery-sani.onrender.com/'
 
